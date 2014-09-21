@@ -19,9 +19,12 @@ before_action :authenticate_user!
   
   
   def create
-    @task = current_user.tasks.create(task_params)
-    respond_to do |format|
-        format.js { }
+    @list = current_user.lists.find(task_params[:list_id])
+    if @list
+      @task = @list.tasks.create(task_params)
+      respond_to do |format|
+          format.js { }
+      end
     end
   end
   
