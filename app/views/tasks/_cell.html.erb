@@ -1,0 +1,7 @@
+<% tasks.each do |task| %>
+<div class='task'>
+    <%= best_in_place task, :content, :place_holder => "<i>Что сделать?</i>", :class => " #{"finished" if task.complete?}"%>
+     <%= link_to "", task_url(task), :method => :delete, :remote => true,:class=>"icon-remove remove", :style=>'display: none;color: red'%>
+     <%= link_to "", complete_task_url(task), :method => :post, :remote => true,:class=>"#{task.complete? ? "icon-pencil" : "icon-ok"} complete", :style=>'display: none;color: green'%>
+ </div>
+<% end %>

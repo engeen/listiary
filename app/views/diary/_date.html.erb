@@ -1,0 +1,14 @@
+<% @dates.each do |date|%>
+<tr id='<%= "date_#{date[:date].to_time.to_i}" %>'>
+    <td class="date filterable-cell" style='width: 4%'><%= date[:date].to_time.strftime('%d %b')%>
+        <small><small><br/><%=  date[:date].year%></small></small>
+      </td>
+    <% @lists.each do |list| %>
+     <td id='<%= "ph_#{list.id}_#{date[:date].to_time.to_i}" %>' data-list='<%= list.id%>' data-date='<%= date[:date]%>' style='width: <%= (93 / @lists.length)-2 %>%'>
+      
+      <%= render "tasks/cell", :tasks => date[list.id] %>
+     
+     </td>
+    <% end %>
+</tr>
+<% end %>

@@ -1,0 +1,16 @@
+<div class='row-fluid'>
+  <p>
+  <a href='<%= omniauth_authorize_path(User, :facebook) %>' class="btn btn-large btn-primary btn-facebook"><i class="fa fa-facebook"></i> | Connect with Facebook</a>
+  <a href='<%= omniauth_authorize_path(User, :google_oauth2) %>' class="btn btn-large btn-danger btn-google-plus"><i class="fa fa-google-plus"></i> | Connect with Google</a>
+  </p>
+  <p>
+  or <%= link_to "sign up", new_user_registration_url %>
+  </p>
+
+</div>
+<div class="hero-unit">
+      <h1>Hi, I'm, Listiary</h1>
+      <p> Just a usual todo-listing tool with an unusual layout</p>
+      <p><%= image_tag "example.png"%>
+</div>
+

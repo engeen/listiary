@@ -1,0 +1,31 @@
+<% content_for :header do %>
+
+<table id='dates_header' class="table header-fixed" >
+  <thead>
+    <%= link_to "+", lists_url(), :method => :post, :class=>"btn btn-primary btn-small", :style => "position: absolute; right: 5px; top: 45px"%>
+   <tr>
+       <th style='width: 4%'>Дата</th>
+       <% @lists.each do |list| %>
+        <th style='width: <%= (95 / @lists.length)-2 %>%'>
+          <%= best_in_place list, :name, :place_holder => "Название списка" %>
+          <%= link_to "", left_list_url(list), :method => :post, :class=>"icon-arrow-left",  :style=>'display: none;color: white; ' %>
+          <%= link_to "", right_list_url(list), :method => :post, :class=>"icon-arrow-right",  :style=>'display: none;color: white; ' %>
+          <%= link_to "", list_url(list), :method => :delete, :class=>"icon-remove", :confirm => "Уверены, что хотите удалить список и все связанные с ним задачи?", :style=>'display: none;color: white; '%>
+        </th>
+          
+       <% end %>
+   </tr>
+   </thead>
+</table>
+
+<% end %>
+
+<div class='table-responsive'>
+  <table id='dates' class="table header-fixed" first='<%= @first_date%>' last='<%= @last_date%>'>
+   <tbody>
+    <%= render "date"%>
+    
+   </tbody>
+  </table>
+  
+</div>
