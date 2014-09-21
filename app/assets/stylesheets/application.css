@@ -34,12 +34,18 @@ span.finished {
 }
 
 a.complete, a.complete:hover {
-	float: left;
+/*	float: left;*/
+	position: absolute;
 	text-decoration :none;
+	margin-left: -12px;
 }
 
+
+
 a.remove, a.remove:hover {
+	position: relative;
 	float: right;
+	margin-right: -5px;
 	text-decoration :none;
 }
 

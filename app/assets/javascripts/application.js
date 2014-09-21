@@ -51,6 +51,8 @@ function bindleavesenters() {
 	$('div.task').mouseenter(function() {
 		$(this).children('.remove').show();
 		$(this).children('.complete').show();
+//		$(this).children('.remove').css('position', 'absolute');
+//		$(this).children('.complete').css('position', 'absolute');
 	});
 
 	$('div.task').mouseleave(function() {
