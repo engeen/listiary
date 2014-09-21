@@ -63,7 +63,8 @@
               <div class="container-fluid nav-collapse">
                 <ul class="nav">
                   <li><%= link_to current_user.name if signed_in?%></span></li>
-                  <li><%= link_to "Выйти", destroy_user_session_url, :method => :delete  if signed_in? %></li>
+                  <li><%= link_to "Feedback", feedback_url %></li>
+                  <li><%= link_to "Logout", destroy_user_session_url, :method => :delete  if signed_in? %></li>
                 </ul>
                 <div class='pull-right'>
                   <div class="fb-share-button" data-href="http://listiary.herokuapp.com" style='padding: 5px;color: white'></div>

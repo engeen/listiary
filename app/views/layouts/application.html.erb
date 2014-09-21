@@ -63,8 +63,9 @@
               <a class="brand" href="<%= root_url %>">Listiary</a>
               <div class="container-fluid nav-collapse">
                 <ul class="nav">
-                  <li><%= link_to current_user.name if signed_in?%></span></li>
-                  <li><%= link_to "Выйти", destroy_user_session_url, :method => :delete  if signed_in? %></li>
+                  <li><%= link_to current_user.name, diary_url if signed_in?%></span></li>
+                  <li><%= link_to "Feedback", feedback_url %></li>
+                  <li><%= link_to "Logout", destroy_user_session_url, :method => :delete  if signed_in? %></li>
                   <li><%= link_to "Login", new_user_session_url  unless signed_in? %></li>
                 </ul>
                 <div class='pull-right'>

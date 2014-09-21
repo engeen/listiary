@@ -8,6 +8,7 @@ Diary::Application.routes.draw do
   
   get 'diary' => 'diary#index', as: :diary
   get 'dates' => 'diary#dates'
+  get 'feedback' => 'home#feedback', as: :feedback
   match '/users/:id/finish_signup' => 'users#finish_signup', via: [:get, :patch], :as => :finish_signup
   
   resources :users
