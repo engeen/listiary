@@ -40,6 +40,31 @@ a.complete, a.complete:hover {
 	margin-left: -12px;
 }
 
+ul.tasks {
+	list-style-type: disc;
+/*	list-style-image: url(<%= asset_url 'bigdisc.png'%>);*/
+	padding: 0;
+	margin: 0;
+	margin-left: 15px;
+	height: 100%;
+	outline: #00FF00 dotted 0;
+}
+
+
+.finished {
+	text-decoration: line-through;
+	font-size: small;
+	font-style: italic;
+	color: #888888;
+}
+
+.pointer {
+	cursor: pointer;
+	list-style-image: url(<%= asset_url 'ok.png'%>);
+}
+
+
+
 
 
 a.remove, a.remove:hover {

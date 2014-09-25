@@ -1,8 +1,12 @@
 <% if params[:last] %>
 	$('#dates > tbody').append("<%= escape_javascript(render :partial => 'date') %>");
 	$('#dates').attr('last', '<%= @last_date%>');
+	$('.tasks').each(function () { rebindlis($(this)); });
+	initEditing();
 <% elsif params[:first] %>
 	$('#dates > tbody').prepend("<%= escape_javascript(render :partial => 'date') %>");
 	$('#dates').attr('first', '<%= @first_date%>');
 	window.scrollTo(0,150);
+	$('.tasks').each(function () { rebindlis($(this)); });
+	initEditing();
 <% end %>

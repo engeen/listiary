@@ -30,42 +30,121 @@ function nearTopOfPage() {
 }
 
 
-function binddblclick() {
- 	$('#dates > tbody > tr > td').off('dblclick')
-	$('#dates > tbody > tr > td').bind('dblclick', function(e) {
-		e.preventDefault();
-		$.ajax({
-      url: '/tasks.js',
-			data : { task: { target: $(this).attr('data-date'), list_id: $(this).attr('data-list')} },
-      type: 'post',
-      dataType: 'script',
-      success: function() {
-      }
-    });
-	});
+
+
+
+function rebindlis(elem) {
+			elem.children('li').unbind('click');
+			elem.children('li').on('click', function(evt) {
+				var x = evt.pageX - $(this).offset().left;
+				var y = evt.pageY - $(this).offset().top;
+	//			var bodyOffsets = $('body').getBoundingClientRect();
+				if ((x >= -15) && (x<=-11) && (y <= 15) && (y >= 5)) {
+					 if ($(this).hasClass("finished")) {
+					 	$(this).removeClass("finished");
+					 } else 
+					{
+					 	$(this).addClass("finished");
+
+					}
+
+	/*				$('#lidrop > ul').css('display','block');
+					$('#lidrop > ul').css('left', $(this).offset().left - 40 );
+					$('#lidrop > ul').css('top',  $(this).offset().top - 60 );*/
+				}
+
+			});
+
+			elem.children('li').unbind('mouseleave');
+			elem.children('li').on('mouseleave', function(evt) {
+				$(this).removeClass('pointer');
+			});
+
+
+			elem.children('li').unbind('mousemove');
+			elem.children('li').on('mousemove', function(evt) {
+				var x = evt.pageX - $(this).offset().left;
+				var y = evt.pageY - $(this).offset().top;
+
+				// $(this).text('x:'+x+',y:'+y);
+				if ((x >= -15) && (x<=-11) && (y <= 15) && (y >= 5)) {
+					$(this).addClass('pointer');
+				} else {
+					$(this).removeClass('pointer');
+
+				}
+			});
 
 }
 
 
-function bindleavesenters() {
-	$('div.task').mouseenter(function() {
-		$(this).children('.remove').show();
-		$(this).children('.complete').show();
-//		$(this).children('.remove').css('position', 'absolute');
-//		$(this).children('.complete').css('position', 'absolute');
-	});
 
-	$('div.task').mouseleave(function() {
-		$(this).children('.remove').hide();
-		$(this).children('.complete').hide();
+function initEditing() {
+	
+	
+	//keyup prevented the user from deleting the bullet (by adding one back right after delete), but didn't add in <li>'s on empty <ul>s, thus keydown added to check
+	$('.tasks').unbind('keyup');
+	$('.tasks').unbind('keydown');
+	
+	$('.tasks').unbind('blur');
+	$('.tasks').on('blur', function() {
+					$.ajax({
+		        url: '/tasks/' + $(this).attr('data-id'),
+						data: { task: { content: $(this).html() } },
+		        type: 'put',
+		        dataType: 'json',
+		        success: function() {
+		        }
+		      });
+		
 	});
+	
+	
+	
+	$('.tasks').on('keyup keydown', function() {
+		//alert('binding');
+		rebindlis($(this));
+	  var $this = $(this);
+	    if (! $this.html()) {
+	        var $li = $('<li></li>');
+
+	        var sel = window.getSelection();
+
+	       var range = sel.getRangeAt(0);
+
+	        range.collapse(false);
+	        range.insertNode($li.get(0));
+	        range = range.cloneRange();
+	        range.selectNodeContents($li.get(0));
+	        range.collapse(false);
+	        sel.removeAllRanges();
+	        sel.addRange(range);
+
+	    } else {
+	        //are there any tags that AREN'T LIs?
+	        //this should only occur on a paste
+	        var $nonLI = $this.find(':not(li, br)');
+
+	        if ($nonLI.length) {
+	            $this.contents().replaceWith(function() {
+	    //we create a fake div, add the text, then get the html in order to strip out html code. we then clean up a bit by replacing nbsp's with real spaces
+	return '<li>' + $('<div />').text($(this).text()).html().replace(/&nbsp;/g, ' ') + '</li>';
+	            }); 
+	            //we could make this better by putting the caret at the end of the last LI, or something similar
+	        }                   
+	    }
+
+
+	});	
+
 }
+
 
 $(document).ready(function() {
   /* Activating Best In Place */
   jQuery(".best_in_place").best_in_place();
-	bindleavesenters();
-	binddblclick();
+/*	bindleavesenters(); */
+/*	binddblclick(); */
 
 
 	$('#dates_header > thead > tr > th').mouseenter(function() {
@@ -78,6 +157,30 @@ $(document).ready(function() {
 		$(this).children('.icon-arrow-left').hide();
 		$(this).children('.icon-arrow-right').hide();
 	});
+	
+	
+
+	initEditing();
+	$('.tasks').each(function () { rebindlis($(this)); });
+
+	
+	
+	// $('#lidrop').on('mouseleave', function(){
+	// 	$('#lidrop > ul').css('display', 'none');
+	// });
+	
+	
+	// 		});
+	
+// 	$('.tasks').blur(function(){
+// 	//	alert('guest');
+// 		$('.tasks > ul > li').bind('mousemove', function() {
+// //			$(this).css('background-color', 
+// //				'rgb('+Math.floor((Math.random() * 255) + 1)+','+Math.floor((Math.random() * 10) + 1) + ',' +Math.floor((Math.random() * 10) + 1) + ')'); 
+// //			$(this).text('');
+// 		});
+// 
+// 	});
 	
 
 
@@ -104,9 +207,9 @@ $(document).ready(function(){
         dataType: 'script',
         success: function() {
           loading=false;
-					binddblclick();
-					jQuery(".best_in_place").best_in_place();
-				  bindleavesenters();
+//					binddblclick();
+//					jQuery(".best_in_place").best_in_place();
+//				  bindleavesenters();
 					
         }
       });
@@ -122,9 +225,9 @@ $(document).ready(function(){
         dataType: 'script',
         success: function() {
           loading=false;
-					binddblclick();
-					jQuery(".best_in_place").best_in_place();
-					bindleavesenters();
+//					binddblclick();
+//					jQuery(".best_in_place").best_in_place();
+//					bindleavesenters();
 					
         }
       });
