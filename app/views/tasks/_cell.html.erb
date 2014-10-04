@@ -1,1 +1,10 @@
 <ul class='tasks' data-id='<%= task.id %>' contenteditable='true' spellcheck='false'><%= raw task.content %></ul>
+<% if defined?(contexts)%>
+  <% contexts.each do |c|%>
+    <% context_task = c.tasks.at(task.list, task.target).first %>
+    <h4 class='context_header'><%= best_in_place context_task, :context_name, :place_holder => "имя контекста" %>
+      <%= link_to "", task_url(context_task), :method => :delete, :remote => true, :confirm => "Уверены что хотите удалить этот блок и связанные с ним задачи?",:class => "icon-remove", :style => "display: none"%>  
+    </h4>
+    <ul class='tasks' data-id='<%= context_task.id %>' contenteditable='true' spellcheck='false'><%= raw  context_task.content %></ul>
+  <% end %>
+<% end %>

@@ -1,0 +1,5 @@
+$("#<%= "ph_#{@task.list_id}_#{@task.target.to_time.to_i}" %>").html('<%= escape_javascript( render("cell", :task => current_user.tasks.at(@task.list, @task.target).where(:context_id => nil).first, :contexts => current_user.contexts_at(@task.list, @task.target)) ) %>');
+initEditing();
+rebind_context_headers();
+$('.tasks').each(function () { rebindlis($(this)); });
+$('#lidrop').html('<%= escape_javascript( render "diary/dropdown")%>');

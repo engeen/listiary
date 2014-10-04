@@ -12,13 +12,27 @@ layout "diary"
       date = Hash.new
       @last_date = date[:date] = d.days.since(current_date)
       @lists.each do |l|
-        date[l.id] = l.tasks.find_or_create_by(:target => date[:date])
+        date[l.id] = l.tasks.where(:context_id => nil,:target => date[:date]).first
+        unless date[l.id]
+          date[l.id] = l.tasks.create(:target => date[:date])
+        end
       end
       @dates.push(date)
 
     end
     
   end
+
+
+
+
+  def settings
+    @contexts = current_user.contexts
+    render :layout => "application"
+  end
+
+
+
 
 
   def dates
@@ -31,7 +45,10 @@ layout "diary"
         date = Hash.new
         @last_date = date[:date] = d.days.since(current_date)
         @lists.each do |l|
-          date[l.id]  = l.tasks.find_or_create_by(:target => date[:date])
+          date[l.id]  = l.tasks.where(:context_id => nil,:target => date[:date]).first
+          unless date[l.id]
+            date[l.id] = l.tasks.create(:target => date[:date])
+          end
         end
         @dates.push(date)
       end
@@ -44,7 +61,10 @@ layout "diary"
         date = Hash.new
         @first_date = date[:date] = @last_date - d.days
         @lists.each do |l|
-          date[l.id]  = l.tasks.find_or_create_by(:target => date[:date])
+          date[l.id]  = l.tasks.where(:context_id => nil,:target => date[:date]).first
+          unless date[l.id]
+            date[l.id] = l.tasks.create(:target => date[:date])
+          end
         end
         @dates.push(date)
       end

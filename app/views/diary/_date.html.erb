@@ -1,12 +1,15 @@
 <% @dates.each do |date|%>
 <tr id='<%= "date_#{date[:date].to_time.to_i}" %>'>
-    <td class="date filterable-cell" style='width: 4%'><%= date[:date].to_time.strftime('%d %b')%>
+    <td class="date filterable-cell" style='width: 5%'><%= date[:date].to_time.strftime('%d')%>
+        <small><small><%= date[:date].to_time.strftime('%b')%></small></small>
+        <br/><%= date[:date].to_time.strftime('%a')%>
         <small><small><br/><%=  date[:date].year%></small></small>
+
       </td>
     <% @lists.each do |list| %>
      <td id='<%= "ph_#{list.id}_#{date[:date].to_time.to_i}" %>' data-list='<%= list.id%>' data-date='<%= date[:date]%>' style='width: <%= (93 / @lists.length)-2 %>%'>
       
-      <%= render "tasks/cell", :task => date[list.id] %>
+      <%= render "tasks/cell", :task => date[list.id], :contexts => current_user.contexts_at(List.find(list.id), date[:date]) %>
      
      </td>
     <% end %>

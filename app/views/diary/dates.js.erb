@@ -3,10 +3,12 @@
 	$('#dates').attr('last', '<%= @last_date%>');
 	$('.tasks').each(function () { rebindlis($(this)); });
 	initEditing();
+	rebind_context_headers();
 <% elsif params[:first] %>
 	$('#dates > tbody').prepend("<%= escape_javascript(render :partial => 'date') %>");
 	$('#dates').attr('first', '<%= @first_date%>');
 	window.scrollTo(0,150);
 	$('.tasks').each(function () { rebindlis($(this)); });
 	initEditing();
+	rebind_context_headers();
 <% end %>

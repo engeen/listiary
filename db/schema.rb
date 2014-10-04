@@ -11,10 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140921195044) do
+ActiveRecord::Schema.define(version: 20141016204421) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "contexts", force: true do |t|
+    t.string   "name"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "contexts", ["user_id"], name: "index_contexts_on_user_id", using: :btree
 
   create_table "identities", force: true do |t|
     t.integer  "user_id"
@@ -42,9 +51,11 @@ ActiveRecord::Schema.define(version: 20140921195044) do
     t.integer  "list_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "complete"
+    t.boolean  "complete",   default: false
+    t.integer  "context_id"
   end
 
+  add_index "tasks", ["context_id"], name: "index_tasks_on_context_id", using: :btree
   add_index "tasks", ["list_id"], name: "index_tasks_on_list_id", using: :btree
 
   create_table "users", force: true do |t|

@@ -8,6 +8,7 @@ GIT
 
 GEM
   remote: https://rubygems.org/
+  remote: https://rails-assets.org/
   specs:
     actionmailer (4.0.4)
       actionpack (= 4.0.4)
@@ -140,6 +141,8 @@ GEM
     rdoc (4.1.2)
       json (~> 1.4)
     ref (1.0.5)
+    russian (0.6.0)
+      i18n (>= 0.5.0)
     sass (3.2.19)
     sass-rails (4.0.3)
       railties (>= 4.0.0, < 5.0)
@@ -149,6 +152,8 @@ GEM
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
+    spectrum-rails (1.3.4)
+      railties (>= 3.1)
     sprockets (2.11.0)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -201,8 +206,10 @@ DEPENDENCIES
   pg
   rails (= 4.0.4)
   rails_12factor
+  russian (~> 0.6.0)
   sass-rails (~> 4.0.2)
   sdoc
+  spectrum-rails (~> 1.3.4)
   therubyracer
   turbolinks
   twitter-bootstrap-rails

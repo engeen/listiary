@@ -10,12 +10,21 @@ class User < ActiveRecord::Base
   has_many :identities
   has_many :lists
   has_many :tasks, :through => :lists
-  
+  has_many :contexts
   
   
 
 
    validates_format_of :email, :without => TEMP_EMAIL_REGEX, on: :update
+
+
+
+   def contexts_at(list,date)
+     cids = list.tasks.where(:target => date).where('NOT context_id IS NULL').map(&:context_id)
+     cids.uniq.map {|cid| Context.find(cid) }
+   end
+
+
 
    def self.find_for_oauth(auth, signed_in_resource = nil)
 

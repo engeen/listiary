@@ -1,0 +1,19 @@
+<div class='dropdown' id='lidrop'>
+  <ul class="dropdown-menu" role="menu">
+      <li role="presentation"><a role="menuitem" tabindex="-1" class='compl' href="#">Готово</a></li>
+      <li role="presentation" class="divider"></li>
+      <% if current_user.contexts.count > 0%>
+        <% current_user.contexts.each do |c|%>
+          <li role="presentation">
+
+            <a role="menuitem" tabindex="-1" data-context="<%= c.id %>" class='addcontext' href="#">
+            <%= c.name %>
+            </a>
+            
+            </li>
+        <% end %>
+        <li role="presentation" class="divider"></li>
+      <% end %>
+      <li role="presentation"><a role="menuitem" tabindex="1" class='newcontext' href="#">Новый контекст</a></li>
+  </ul>
+</div>

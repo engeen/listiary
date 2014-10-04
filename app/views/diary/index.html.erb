@@ -1,10 +1,10 @@
 <% content_for :header do %>
 
-<table id='dates_header' class="table header-fixed" >
+<table id='dates_header' class="table header-fixed diary" >
   <thead>
     <%= link_to "+", lists_url(), :method => :post, :class=>"btn btn-primary btn-small", :style => "position: absolute; right: 5px; top: 45px"%>
    <tr>
-       <th style='width: 4%'>Дата</th>
+       <th style='width: 5%'>Дата</th>
        <% @lists.each do |list| %>
         <th style='width: <%= (95 / @lists.length)-2 %>%'>
           <%= best_in_place list, :name, :place_holder => "Название списка" %>
@@ -20,15 +20,10 @@
 
 <% end %>
 
-<div class='dropdown' id='lidrop'>
-  <ul class="dropdown-menu" role="menu">
-      <li role="presentation"><a role="menuitem" tabindex="-1" href="http://twitter.com/fat">Complete</a></li>
-<%#      <li role="presentation" class="divider"></li> %>
-  </ul>
-</div>
+<%= render "dropdown"%>
               
 <div class='table-responsive'>
-  <table id='dates' class="table header-fixed" first='<%= @first_date%>' last='<%= @last_date%>'>
+  <table id='dates' class="table header-fixed diary" first='<%= @first_date%>' last='<%= @last_date%>'>
    <tbody>
     <%= render "date"%>
     

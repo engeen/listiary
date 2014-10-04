@@ -1,0 +1,22 @@
+<div class='row-fluid'>
+  <h1>Мои контексты</h1>
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>Имя контекста</th>
+        <th>Количество задач</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @contexts.each do |c|%>
+      <tr>
+        <td><%= best_in_place c, :name%></td>
+        <td><%= c.tasks.count %></td>
+        <td><%= link_to "", context_url(c), :method => :delete, :confirm => "Уверены, что хотите удалить контекст и все связанные задачи?",:class => "icon-remove"%></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+

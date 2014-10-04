@@ -11,18 +11,19 @@
  *= require_self
  *= require jquery.ui.all
  *= require font-awesome
+ *= require spectrum
  *= require_tree .
  */
 
 
-table > tbody > tr > td {
+table.diary > tbody > tr > td {
 	background-color: #e0ffe0;
 	border-right: 1px Solid #c0eec0;
 	border-bottom: none;
 	height: 150px;
 }
 
-table > tbody > tr {
+table.diary > tbody > tr {
 	border-color: #c0eec0;
 }
 
@@ -46,7 +47,7 @@ ul.tasks {
 	padding: 0;
 	margin: 0;
 	margin-left: 15px;
-	height: 100%;
+	min-height: 50px;
 	outline: #00FF00 dotted 0;
 }
 
@@ -75,15 +76,15 @@ a.remove, a.remove:hover {
 }
 
 
-table {
+table.diary {
 	table-layout: fixed;
 }
-table > tbody > tr > td{ 
+table.diary > tbody > tr > td{ 
   overflow-x: scroll;
   text-overflow: ellipsis;
 }
 
-table > tbody > tr > td.date {
+table.diary > tbody > tr > td.date {
 	background-color: #eeffee;
 }
 
@@ -92,7 +93,7 @@ table > tbody > tr > td.date {
 }
 
 
-table > thead > tr > th {
+table.diary > thead > tr > th {
 	background-color: #c0eec0;
 }
 
