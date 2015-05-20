@@ -12,7 +12,7 @@ function nearBottomOfPage() {
 
 
 function nearTopOfPage() {
-  return $(window).scrollTop() < 0;
+  return $(window).scrollTop() == 0;
 }
 
 
@@ -260,7 +260,7 @@ $(document).ready(function(){
    if (loading) {
       return;
     }
-
+    //alert($(window).scrollTop());
    if(nearTopOfPage() && !finish) {
 //			alert('test top');
 			loading = true;
